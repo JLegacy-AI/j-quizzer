@@ -18,7 +18,7 @@ function TextField(props) {
 
   return (
     <div>
-        <input className={style.default} value={props.value} type={props.text} name={props.name} placeholder={props.placeholder} onKeyUp={(e)=> handleClick(e)} onChange={(e) => props.handleChange(e)} required/> 
+        <input className={style.default} value={props.value} type={props.type} name={props.name} placeholder={props.placeholder} onKeyUp={(e)=> handleClick(e)} onChange={(e) => props.handleChange(e)} required/> 
     </div>
   )
 }

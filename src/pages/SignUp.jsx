@@ -1,5 +1,5 @@
 import React from 'react'
-import {useState, useEffect} from 'react'
+import {useState} from 'react'
 import axios from 'axios'
 import TextField from './TextField';
 
@@ -51,17 +51,23 @@ function SignUp() {
         console.log(state);
     }
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault()
         if(state['password'] !== state['againpassword'] ){
             setstate({...state, password: "", againpassword: ""})
-            console.log(e);
+            return
         }
+        await axios.post('http://localhost:3001/user',{...state})
+        .then( responce => {
+            alert('Account Successfully Created')
+        })
+        .catch( error => {
+            alert(error.message)
+        })
     } 
 
     return (
-        <div className='w-screen min-h-screen bg-gradient-to-r pl-[200px] pr-[200px] from-cyan-500 to-[#5F24DC] flex justify-center items-center'>
-            <form className='flex max-w-[1100px] rounded-md bg-white m-auto' onSubmit={(e) => handleSubmit(e)}>      
+            <form className='flex rounded-md bg-white  m-auto' onSubmit={(e) => handleSubmit(e)}>      
                 <div className='m-[30px] flex flex-col'>
                     <h1 className='mb-[20px] font-serif text-3xl text-[#848485] flex justify-center items-center'>Sign Up</h1>
                     {
@@ -71,12 +77,11 @@ function SignUp() {
                     }
                     <input className='mb-[20px] hover:cursor-pointer outline-none border-2 text-[#848485] hover:text-white hover:font-semibold h-[35px] w-[100px] rounded-md border-[#848485] hover:border-[#5F24DC] hover:bg-[#5F24DC]  flex items-center justify-center transition-all' type="submit" value="Sign Up" name='submit'/>
                 </div>
-                <div className='hidden 1075:flex justify-center items-center'>
-                    <img src={process.env.PUBLIC_URL+"images/signup-image-test-3.png"} alt="teacher image" />
-                </div>
             </form>
-        </div>
     )
 }
 
 export default SignUp
+
+// <div className='w-screen min-h-screen  pl-[200px] pr-[200px] bg-[#353738] flex justify-center items-center'>
+//         </div>
